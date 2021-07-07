@@ -4,6 +4,7 @@ const { Category, Product } = require("../../models");
 
 // Get all Categories
 router.get("/", async (req, res) => {
+  // running findAll() part of sequeilze 
   try {
     const categoryData = await Category.findAll({
       include: [{ model: Product }],
