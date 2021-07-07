@@ -10,13 +10,13 @@ class Product extends Model {}
 Product.init(
   // id here to create the Primary Key
   {
+    // ============== Defined columns below
     id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
       autoIncrement: true,
     },
-    // ============== Defined below columns
     product_name: {
       type: DataTypes.STRING,
       allowNull: false,
