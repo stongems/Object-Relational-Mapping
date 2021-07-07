@@ -1,10 +1,9 @@
-
 const router = require("express").Router();
 const { Category, Product } = require("../../models");
 
 // Get all Categories
 router.get("/", async (req, res) => {
-  // running findAll() part of sequeilze 
+  // running findAll() part of sequeilze
   try {
     const categoryData = await Category.findAll({
       include: [{ model: Product }],
@@ -26,11 +25,9 @@ router.get("/:id", async (req, res) => {
       include: [{ model: Product }],
     });
     if (!categoryData) {
-      res
-        .status(404)
-        .json({
-          message: "404 Error",
-        });
+      res.status(404).json({
+        message: "404 Error",
+      });
       return;
     }
     res.status(200).json(categoryData);
@@ -44,11 +41,9 @@ router.post("/", async (req, res) => {
   try {
     const categoryData = await Category.create(req.body);
     if (!categoryData) {
-      res
-        .status(404)
-        .json({
-          message: "404 Error",
-        });
+      res.status(404).json({
+        message: "404 Error",
+      });
       return;
     }
     res.status(200).json(categoryData);
@@ -64,11 +59,9 @@ router.put("/:id", async (req, res) => {
       where: { id: req.params.id },
     });
     if (!categoryData[0]) {
-      res
-        .status(404)
-        .json({
-          message: "404 Error.",
-        });
+      res.status(404).json({
+        message: "404 Error.",
+      });
       return;
     }
     res.status(200).json(categoryData);
@@ -84,11 +77,9 @@ router.delete("/:id", async (req, res) => {
       where: { id: req.params.id },
     });
     if (!categoryData) {
-      res
-        .status(404)
-        .json({
-          message: "404 Error",
-        });
+      res.status(404).json({
+        message: "404 Error",
+      });
       return;
     }
     res.status(200).json(categoryData);
