@@ -1,28 +1,92 @@
-const router = require('express').Router();
-const { Tag, Product, ProductTag } = require('../../models');
-
 // The `/api/tags` endpoint
 
-router.get('/', (req, res) => {
-  // find all tags
-  // be sure to include its associated Product data
+const router = require("express").Router();
+const { Tag, Product, ProductTag } = require("../../models");
+
+// Get all Tags
+router.get("/", async (req, res) => {
+  try {
+    const tagData = await Tag.findAll({
+      include: [{ model: ProductTag }, { model: Product }],
+    });
+    if (!tagData) {
+      res.status(404).json({ message: "No tags found." });
+      return;
+    }
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-router.get('/:id', (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
+// Get by Tag ID
+router.get("/:id", async (req, res) => {
+  try {
+    const tagData = await Product.findByPk(req.params.id, {
+      include: [{ model: ProductTag }, { model: Product }],
+    });
+    if (!tagData) {
+      res.status(404).json({
+        message: "Im afraid I cant let you do that, the ID is incorrect.",
+      });
+      return;
+    }
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-router.post('/', (req, res) => {
-  // create a new tag
+// ==========================New Tag
+router.post("/", async (req, res) => {
+  try {
+    const tagData = await Tag.create(req.body);
+    if (!tagData) {
+      res.status(404).json({
+        message: "Im afraid I cant let you do that, the ID is incorrect.",
+      });
+      return;
+    }
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-router.put('/:id', (req, res) => {
-  // update a tag's name by its `id` value
+// =================================Update Tag
+router.put("/:id", async (req, res) => {
+  try {
+    const tagData = await Tag.update(req.body, {
+      where: { id: req.params.id },
+    });
+    if (!tagData[0]) {
+      res.status(404).json({
+        message: "404 ERROR",
+      });
+      return;
+    }
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
-router.delete('/:id', (req, res) => {
-  // delete on tag by its `id` value
+// ===============================Delete Tag
+router.delete("/:id", async (req, res) => {
+  try {
+    const tagData = await Tag.destroy({
+      where: { id: req.params.id },
+    });
+    if (!tagData) {
+      res.status(404).json({
+        message: "404 ERROR",
+      });
+      return;
+    }
+    res.status(200).json(tagData);
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
 
 module.exports = router;
