@@ -16,5 +16,5 @@ ProductTag.init(
     modelName: 'product_tag',
   }
 );
-
+// =======Export attached here
 module.exports = ProductTag;

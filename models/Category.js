@@ -28,4 +28,5 @@ Category.init(
   }
 );
 
+// =======Export attached here
 module.exports = Category;
