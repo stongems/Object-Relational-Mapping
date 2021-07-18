@@ -27,7 +27,7 @@ router.get("/:id", async (req, res) => {
     });
     if (!productData) {
       res.status(404).json({
-        message: "Im afraid I cant let you do that, the ID is incorrect.",
+        message: "The ID is incorrect.",
       });
       return;
     }
@@ -102,7 +102,7 @@ router.delete("/:id", async (req, res) => {
     });
     if (!productData) {
       res.status(404).json({
-        message: "Im afraid I cant let you do that, the ID is incorrect.",
+        message: "The ID is incorrect.",
       });
       return;
     }
